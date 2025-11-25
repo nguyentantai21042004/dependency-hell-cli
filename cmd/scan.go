@@ -5,9 +5,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/core"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/output"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/providers"
+	"dependency-hell-cli/internal/core"
+	"dependency-hell-cli/internal/output"
+	"dependency-hell-cli/internal/providers"
+
 	"github.com/spf13/cobra"
 )
 
@@ -39,6 +40,9 @@ func runScan(cmd *cobra.Command, args []string) {
 		providers.NewGoProvider(),
 		providers.NewNodeProvider(),
 		providers.NewJavaProvider(),
+		providers.NewPythonProvider(),
+		providers.NewPHPProvider(),
+		providers.NewRustProvider(),
 	}
 
 	// Filter providers if --lang flag is set

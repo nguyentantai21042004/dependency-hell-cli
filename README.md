@@ -14,7 +14,7 @@
 
 ---
 
-## 🎯 Overview
+## Overview
 
 D-Hell CLI helps you understand what's installed in your development environment and how much disk space it's consuming. It automatically detects programming languages, identifies their installation sources, and calculates disk usage for SDKs, caches, and package managers.
 
@@ -22,37 +22,37 @@ D-Hell CLI helps you understand what's installed in your development environment
 
 As developers, we install multiple programming languages, version managers, package managers, and their dependencies. Over time, these accumulate and consume significant disk space:
 
-- 🗂️ **Module caches** (Go's `pkg/mod`, npm's `_cacache`, Maven's `.m2`)
-- 📦 **Package manager stores** (pnpm's hardlink store, Yarn cache)
-- 🔧 **Build caches** (Go build cache, Gradle cache)
-- 🎯 **Multiple SDK versions** (via nvm, goenv, sdkman)
+- **Module caches** (Go's `pkg/mod`, npm's `_cacache`, Maven's `.m2`)
+- **Package manager stores** (pnpm's hardlink store, Yarn cache)
+- **Build caches** (Go build cache, Gradle cache)
+- **Multiple SDK versions** (via nvm, goenv, sdkman)
 
 D-Hell CLI gives you visibility into all of this.
 
 ### Key Features
 
-✅ **Multi-Language Support** - Go, Node.js, Java (Python, Rust coming in Phase 2)  
-### ✅ **Automatic Source Detection** - Identifies Homebrew, Version Managers (nvm, goenv, sdkman), System installations  
-✅ **Disk Usage Analysis** - Calculates space used by SDKs, caches, and package managers  
-✅ **Beautiful Terminal UI** - Color-coded status indicators and formatted tables  
-✅ **Environment Variable Inspection** - Shows relevant env vars (GOPATH, JAVA_HOME, etc.)  
-✅ **Cache Cleaning** - Safe cache cleaning with dry-run and interactive confirmation (Phase 2)  
-🚧 **Project Scanning** - Find wasted space in old projects (Phase 3)
+- Multi-Language Support - Go, Node.js, Java (Python, Rust coming in Phase 2)  
+- Automatic Source Detection - Identifies Homebrew, Version Managers (nvm, goenv, sdkman), System installations  
+- Disk Usage Analysis - Calculates space used by SDKs, caches, and package managers  
+- Beautiful Terminal UI - Color-coded status indicators and formatted tables  
+- Environment Variable Inspection - Shows relevant env vars (GOPATH, JAVA_HOME, etc.)  
+- Cache Cleaning - Safe cache cleaning with dry-run and interactive confirmation (Phase 2)  
+- Project Scanning - Find wasted space in old projects (Phase 3)
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Via Go Install (Recommended)
 
 ```bash
-go install github.com/nguyentantai21042004/dependency-hell-cli@latest
+go install dependency-hell-cli@latest
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/nguyentantai21042004/dependency-hell-cli.git
+git clone https://dependency-hell-cli.git
 cd dependency-hell-cli
 go build -o dhell
 sudo mv dhell /usr/local/bin/
@@ -66,7 +66,7 @@ dhell --version
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Scan All Languages
 
@@ -112,7 +112,7 @@ dhell scan --verbose
 
 ---
 
-## 📊 Supported Languages
+## Supported Languages
 
 | Language | Detection Method | Version Managers | Cache Locations |
 |----------|-----------------|------------------|-----------------|
@@ -122,28 +122,28 @@ dhell scan --verbose
 
 ---
 
-## 🎨 Status Indicators
+## Status Indicators
 
 D-Hell CLI uses color-coded status indicators to show the health of your installations:
 
-- 🟢 **Green (Good)** - Managed by a version manager (nvm, goenv, sdkman)
-  - ✅ Easy to switch versions
-  - ✅ Isolated from system
-  - ✅ Best practice
+- 🟢 Green (Good) - Managed by a version manager (nvm, goenv, sdkman)
+  - Easy to switch versions
+  - Isolated from system
+  - Best practice
 
-- 🟡 **Yellow (Warning)** - Installed via Homebrew
-  - ⚠️ Harder to manage multiple versions
-  - ⚠️ Global installation
-  - ℹ️ Acceptable for single-version use
+- 🟡 Yellow (Warning) - Installed via Homebrew
+  - Harder to manage multiple versions
+  - Global installation
+  - Acceptable for single-version use
 
-- 🔴 **Red (Bad)** - System installation or unknown source
-  - ❌ Difficult to update
-  - ❌ May conflict with other tools
-  - ❌ Consider migrating to version manager
+- 🔴 Red (Bad) - System installation or unknown source
+  - Difficult to update
+  - May conflict with other tools
+  - Consider migrating to version manager
 
 ---
 
-## 🏗️ How It Works
+## How It Works
 
 ### Architecture
 
@@ -192,13 +192,13 @@ type LanguageProvider interface {
 
 D-Hell CLI walks directory trees to calculate actual disk space:
 
-- **Concurrent Scanning** - Uses goroutines for fast parallel scanning
-- **Symlink Aware** - Handles symlinks correctly
-- **Error Tolerant** - Continues on permission errors
+- Concurrent Scanning - Uses goroutines for fast parallel scanning
+- Symlink Aware - Handles symlinks correctly
+- Error Tolerant - Continues on permission errors
 
 ---
 
-## 🛠️ Commands
+## Commands
 
 ### `dhell scan`
 
@@ -251,7 +251,7 @@ Show help message.
 
 ---
 
-## 💡 Use Cases
+## Use Cases
 
 ### 1. Disk Space Audit
 
@@ -281,7 +281,7 @@ Identify system installations that should be migrated to version managers:
 dhell scan
 ```
 
-Look for 🔴 red status indicators.
+Look for red status indicators.
 
 ### 4. Team Onboarding
 
@@ -295,7 +295,7 @@ Helps ensure consistent development environments.
 
 ---
 
-## 🔧 Development
+## Development
 
 ### Project Structure
 
@@ -327,7 +327,7 @@ dependency-hell-cli/
 ```go
 package providers
 
-import "github.com/nguyentantai21042004/dependency-hell-cli/internal/core"
+import "dependency-hell-cli/internal/core"
 
 type PythonProvider struct{}
 
@@ -377,15 +377,15 @@ go build -o dhell
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 ### Q: Is it safe to clean caches?
 
 **A:** Yes, but understand what you're cleaning:
-- **Go module cache** - Safe to clean, will re-download on next build
-- **npm/yarn cache** - Safe to clean, may slow down next install
-- **pnpm store** - Safe to clean, but uses hardlinks to save space
-- **Maven/Gradle cache** - Safe to clean, will re-download dependencies
+- Go module cache - Safe to clean, will re-download on next build
+- npm/yarn cache - Safe to clean, may slow down next install
+- pnpm store - Safe to clean, but uses hardlinks to save space
+- Maven/Gradle cache - Safe to clean, will re-download dependencies
 
 Cache cleaning feature coming in Phase 2!
 
@@ -410,49 +410,7 @@ Cache cleaning feature coming in Phase 2!
 
 ---
 
-## 🗺️ Roadmap
-
-### ✅ Phase 1: MVP (Complete)
-- [x] Core scanning for Go, Node.js, Java
-- [x] Source detection (Homebrew, Version Managers, System)
-- [x] Disk usage analysis
-- [x] Beautiful terminal UI
-
-### ✅ Phase 2: Deep Clean (Complete)
-- [x] `dhell clean <lang>` command
-- [x] Safe cache cleaning (Go, npm, Maven, Gradle)
-- [x] Interactive mode with confirmations
-- [x] Dry-run mode for safe preview
-
-### 🔮 Phase 3: Project Scanner (Future)
-- [ ] `dhell projects` command
-- [ ] Scan `~/Projects` for wasted space
-- [ ] Find old `node_modules`, `target`, `venv` directories
-- [ ] Calculate total reclaimable space
-- [ ] Python and Rust support
-
----
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Guidelines
-
-1. Follow Go best practices
-2. Add tests for new providers
-3. Update README for new features
-4. Keep the Plugin/Provider pattern
-
----
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Built with:
 - [Cobra](https://github.com/spf13/cobra) - CLI framework
@@ -464,8 +422,8 @@ Built with:
 
 <div align="center">
 
-**Made with ❤️ for developers drowning in dependency hell**
+**From Tan Tai with love  ❤️**
 
-[Report Bug](https://github.com/nguyentantai21042004/dependency-hell-cli/issues) · [Request Feature](https://github.com/nguyentantai21042004/dependency-hell-cli/issues)
+[Report Bug](https://dependency-hell-cli/issues) · [Request Feature](https://dependency-hell-cli/issues)
 
 </div>

@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/core"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/scanner"
+	"dependency-hell-cli/internal/core"
+	"dependency-hell-cli/internal/scanner"
 )
 
 // NodeProvider implements the LanguageProvider interface for Node.js

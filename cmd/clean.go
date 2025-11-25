@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/cleaner"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/core"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/output"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/providers"
+	"dependency-hell-cli/internal/cleaner"
+	"dependency-hell-cli/internal/core"
+	"dependency-hell-cli/internal/output"
+	"dependency-hell-cli/internal/providers"
+
 	"github.com/spf13/cobra"
 )
 
@@ -49,6 +50,9 @@ func runClean(cmd *cobra.Command, args []string) {
 		providers.NewGoProvider(),
 		providers.NewNodeProvider(),
 		providers.NewJavaProvider(),
+		providers.NewPythonProvider(),
+		providers.NewPHPProvider(),
+		providers.NewRustProvider(),
 	}
 
 	// Select providers based on language argument
@@ -67,7 +71,7 @@ func runClean(cmd *cobra.Command, args []string) {
 
 	if len(selectedProviders) == 0 {
 		fmt.Printf("Unknown language: %s\n", language)
-		fmt.Println("Supported languages: go, node, java, all")
+		fmt.Println("Supported languages: go, node, java, python, php, rust, all")
 		return
 	}
 

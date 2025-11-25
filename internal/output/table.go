@@ -5,8 +5,9 @@ import (
 	"runtime"
 	"strings"
 
+	"dependency-hell-cli/internal/core"
+
 	"github.com/dustin/go-humanize"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/core"
 	"github.com/shirou/gopsutil/v3/host"
 )
 

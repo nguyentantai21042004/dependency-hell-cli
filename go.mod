@@ -1,4 +1,4 @@
-module github.com/nguyentantai21042004/dependency-hell-cli
+module dependency-hell-cli
 
 go 1.25.4
 

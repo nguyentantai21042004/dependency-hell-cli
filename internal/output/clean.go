@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"strings"
 
+	"dependency-hell-cli/internal/core"
+
 	"github.com/charmbracelet/lipgloss"
 	"github.com/dustin/go-humanize"
-	"github.com/nguyentantai21042004/dependency-hell-cli/internal/core"
 )
 
 // RenderCleanPreview shows what would be cleaned in dry-run mode
