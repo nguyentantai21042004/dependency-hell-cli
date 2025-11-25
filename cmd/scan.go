@@ -131,8 +131,8 @@ func scanProvider(provider core.LanguageProvider) output.ScanResult {
 		return result
 	}
 
-	// Use first installation (we can extend this later for multiple versions)
-	result.Installation = &installations[0]
+	// Store all installations
+	result.Installations = installations
 
 	// Get disk usage
 	diskUsage, err := provider.GetGlobalCacheUsage()

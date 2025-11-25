@@ -102,6 +102,26 @@ func (p *PHPProvider) getManagerPath(path string, source core.InstallSource) str
 func (p *PHPProvider) GetGlobalCacheUsage() (*core.DiskUsage, error) {
 	var items []core.DiskUsageItem
 
+	// PHP installation (if via Homebrew)
+	phpPath, err := scanner.FindExecutable("php")
+	if err == nil {
+		realPath, _ := scanner.ResolveSymlink(phpPath)
+		if strings.Contains(realPath, "/opt/homebrew") || strings.Contains(realPath, "/usr/local/Cellar") {
+			// Get Homebrew Cellar directory
+			if idx := strings.Index(realPath, "/Cellar/php"); idx != -1 {
+				phpDir := realPath[:strings.Index(realPath[idx:], "/bin")+idx]
+				if scanner.PathExists(phpDir) {
+					size, _ := scanner.CalculateDirSize(phpDir)
+					items = append(items, core.DiskUsageItem{
+						Path:        phpDir,
+						Description: "PHP Installation",
+						Size:        size,
+					})
+				}
+			}
+		}
+	}
+
 	// Composer cache
 	composerCache := "~/.composer/cache"
 	if scanner.PathExists(composerCache) {

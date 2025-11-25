@@ -31,13 +31,16 @@ D-Hell CLI gives you visibility into all of this.
 
 ### Key Features
 
-- Multi-Language Support - Go, Node.js, Java (Python, Rust coming in Phase 2)  
-- Automatic Source Detection - Identifies Homebrew, Version Managers (nvm, goenv, sdkman), System installations  
-- Disk Usage Analysis - Calculates space used by SDKs, caches, and package managers  
-- Beautiful Terminal UI - Color-coded status indicators and formatted tables  
-- Environment Variable Inspection - Shows relevant env vars (GOPATH, JAVA_HOME, etc.)  
-- Cache Cleaning - Safe cache cleaning with dry-run and interactive confirmation (Phase 2)  
-- Project Scanning - Find wasted space in old projects (Phase 3)
+### Key Features
+
+- **Multi-Language Support** - Go, Node.js, Java, Python, PHP, Rust
+- **Automatic Source Detection** - Identifies Homebrew, Version Managers (nvm, goenv, sdkman, pyenv), System installations  
+- **Disk Usage Analysis** - Calculates space used by SDKs, caches, and package managers  
+- **Beautiful Terminal UI** - Color-coded status indicators and formatted tables  
+- **Environment Variable Inspection** - Shows relevant env vars (GOPATH, JAVA_HOME, PYENV_ROOT, etc.)  
+- **Detailed Info Command** - View paths, environment variables, and cache locations for any language
+- **Cache Cleaning** - Safe cache cleaning with dry-run and interactive confirmation
+- **6 Language Providers** - Comprehensive support for major development ecosystems
 
 ---
 
@@ -116,9 +119,12 @@ dhell scan --verbose
 
 | Language | Detection Method | Version Managers | Cache Locations |
 |----------|-----------------|------------------|-----------------|
-| **Go** | `go version` | goenv, Homebrew, Manual | `GOMODCACHE`, `GOCACHE`, `GOROOT` |
-| **Node.js** | `node --version` | nvm, Volta, Homebrew | npm cache, yarn cache, **pnpm store** |
-| **Java** | `java -version` | SDKMAN!, Homebrew, Manual | Maven `.m2`, Gradle cache |
+| **Go** | `go version` | goenv, Homebrew | Module cache, Build cache |
+| **Node.js** | `node --version` | nvm, volta, Homebrew | npm, yarn, pnpm caches |
+| **Java** | `java -version` | SDKMAN!, Homebrew | Maven repo, Gradle cache |
+| **Python** | `python3 --version` | pyenv, Homebrew | Pip cache, Pyenv versions |
+| **PHP** | `php --version` | Homebrew, System | Composer cache |
+| **Rust** | `rustc --version` | rustup, Homebrew | Cargo registry, Git checkouts |
 
 ---
 
@@ -240,6 +246,27 @@ dhell clean all                  # Clean all languages
 - Shows size of items to be deleted
 - Dry-run mode for safe preview
 - Caches will be rebuilt on next use
+
+### `dhell info`
+
+Show detailed information about a language installation.
+
+**Arguments:**
+- `<language>` - Language to show info for (go, node, java, python, php, rust)
+
+**Examples:**
+```bash
+dhell info go       # Show Go installation details
+dhell info python   # Show Python installation details
+dhell info node     # Show Node.js installation details
+```
+
+**Output includes:**
+- Version and installation source
+- Binary paths and manager locations
+- Environment variables
+- Cache locations with sizes
+- Total disk usage
 
 ### `dhell --version`
 
@@ -381,13 +408,17 @@ go build -o dhell
 
 ### Q: Is it safe to clean caches?
 
-**A:** Yes, but understand what you're cleaning:
+**A:** Yes! All caches detected by D-Hell CLI can be safely cleaned:
+
 - Go module cache - Safe to clean, will re-download on next build
 - npm/yarn cache - Safe to clean, may slow down next install
 - pnpm store - Safe to clean, but uses hardlinks to save space
 - Maven/Gradle cache - Safe to clean, will re-download dependencies
+- Pip cache - Safe to clean
+- Composer cache - Safe to clean
+- Cargo registry - Safe to clean
 
-Cache cleaning feature coming in Phase 2!
+Use `dhell clean <lang> --dry-run` to preview before cleaning!
 
 ### Q: Why is my pnpm store so large?
 
