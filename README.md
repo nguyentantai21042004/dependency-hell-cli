@@ -166,10 +166,10 @@ D-Hell CLI uses a **Plugin/Provider Pattern**:
                   │
     ┌─────────────┼─────────────┐
     │             │             │
-┌───▼───┐    ┌───▼───┐    ┌───▼───┐
-│  Go   │    │ Node  │    │ Java  │
+┌───▼────┐    ┌───▼────┐    ┌───▼────┐
+│  Go    │    │ Node   │    │ Java   │
 │Provider│    │Provider│    │Provider│
-└───────┘    └───────┘    └───────┘
+└────────┘    └────────┘    └────────┘
 ```
 
 Each provider implements the `LanguageProvider` interface:
