@@ -102,11 +102,17 @@ func renderResultRows(result ScanResult) []string {
 	status := core.DetermineStatus(installations[0].Source)
 	statusIcon := status.GetStatusIcon()
 
+	// Determine source display
+	sourceDisplay := string(installations[0].Source)
+	if installations[0].ManagerName != "" {
+		sourceDisplay = installations[0].ManagerName
+	}
+
 	// First row with main info
 	statusStr := fmt.Sprintf(" %-7s", statusIcon)
 	languageStr := fmt.Sprintf(" %-11s", result.Provider.Name())
 	versionStr := fmt.Sprintf(" %-14s", versionInfo)
-	sourceStr := fmt.Sprintf(" %-17s", installations[0].Source)
+	sourceStr := fmt.Sprintf(" %-17s", sourceDisplay)
 
 	// Disk usage - show total first
 	totalSize := humanize.Bytes(uint64(diskUsage.Total))

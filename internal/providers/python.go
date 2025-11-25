@@ -50,15 +50,30 @@ func (p *PythonProvider) DetectInstalled() ([]core.Installation, error) {
 
 	// Determine source
 	source := p.determineSource(realPath)
+	managerName := p.getManagerName(realPath, source)
 
 	installation := core.Installation{
 		Version:     versionStr,
 		Source:      source,
 		BinaryPath:  pythonPath,
 		ManagerPath: p.getManagerPath(realPath, source),
+		ManagerName: managerName,
 	}
 
 	return []core.Installation{installation}, nil
+}
+
+// getManagerName returns the specific version manager name
+func (p *PythonProvider) getManagerName(path string, source core.InstallSource) string {
+	if source == core.SourceVersionManager {
+		if strings.Contains(path, ".pyenv") {
+			return "pyenv"
+		}
+		if strings.Contains(path, "anaconda") || strings.Contains(path, "miniconda") {
+			return "conda"
+		}
+	}
+	return ""
 }
 
 // determineSource determines the installation source based on path

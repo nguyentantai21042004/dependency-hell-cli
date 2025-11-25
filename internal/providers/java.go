@@ -47,15 +47,27 @@ func (p *JavaProvider) DetectInstalled() ([]core.Installation, error) {
 
 	// Determine source
 	source := p.determineSource(realPath)
+	managerName := p.getManagerName(realPath, source)
 
 	installation := core.Installation{
 		Version:     versionStr,
 		Source:      source,
 		BinaryPath:  javaPath,
 		ManagerPath: p.getManagerPath(realPath, source),
+		ManagerName: managerName,
 	}
 
 	return []core.Installation{installation}, nil
+}
+
+// getManagerName returns the specific version manager name
+func (p *JavaProvider) getManagerName(path string, source core.InstallSource) string {
+	if source == core.SourceVersionManager {
+		if strings.Contains(path, ".sdkman") {
+			return "sdkman"
+		}
+	}
+	return ""
 }
 
 // parseVersion extracts version from java -version output

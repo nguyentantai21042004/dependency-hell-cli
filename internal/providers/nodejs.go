@@ -37,24 +37,39 @@ func (p *NodeProvider) DetectInstalled() ([]core.Installation, error) {
 	}
 
 	// Get version
-	version, err := scanner.GetExecutableVersion("node", "--version")
+	versionStr, err := scanner.GetExecutableVersion("node", "--version")
 	if err != nil {
 		return nil, fmt.Errorf("failed to get node version: %w", err)
 	}
 
-	version = strings.TrimSpace(version)
+	versionStr = strings.TrimSpace(versionStr)
 
 	// Determine source
 	source := p.determineSource(realPath)
+	managerName := p.getManagerName(realPath, source)
 
 	installation := core.Installation{
-		Version:     version,
+		Version:     versionStr,
 		Source:      source,
 		BinaryPath:  nodePath,
 		ManagerPath: p.getManagerPath(realPath, source),
+		ManagerName: managerName,
 	}
 
 	return []core.Installation{installation}, nil
+}
+
+// getManagerName returns the specific version manager name
+func (p *NodeProvider) getManagerName(path string, source core.InstallSource) string {
+	if source == core.SourceVersionManager {
+		if strings.Contains(path, ".nvm") {
+			return "nvm"
+		}
+		if strings.Contains(path, ".volta") {
+			return "volta"
+		}
+	}
+	return ""
 }
 
 // determineSource determines the installation source based on path

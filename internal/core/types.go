@@ -18,6 +18,7 @@ type Installation struct {
 	Source      InstallSource
 	BinaryPath  string
 	ManagerPath string
+	ManagerName string // Specific version manager name (e.g., "goenv", "nvm", "pyenv")
 }
 
 // InstallSource represents where the language was installed from
